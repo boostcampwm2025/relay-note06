@@ -1,0 +1,126 @@
+# week1
+
+## GPT 활용 아이디어 토론 정리
+### 🧠 1. Turing Test 시뮬레이션 
+> - 제미나이 vs ChatGPT 로 통한 튜링 테스트
+
+- **역할 분담 방식:**
+    - 제미나이와 ChatGPT에게 각각 역할을 맡겨 대화 시뮬레이션 수행.
+    - **맞추는 역할:** "10가지 문답을 통해 상대가 인간인지 AI인지 맞춰봐."
+    - **속이는 역할:** "스스로를 인간이라고 생각하고 질문에 답변해야 함."
+
+- **결과 분석 포인트:**
+    - AI라고 맞췄을 경우: → 어떻게 더 인간처럼 보이게 만들 수 있을까?
+    - 인간이라고 맞췄을 경우: → 어떤 근거로 판단했는지 분석.
+    - 인간이라고 틀렸을 경우: → 더 나은 프롬프트 설계 방안 탐색.
+
+- **피드백/투표:**
+    - “아이디어가 독특하고 재미있다.”
+    - “투표: 아이디어 독특, 재미있을 듯”
+
+### 📅 2. 출석 체크 및 슬랙 메시지 추적 챗봇 아이디어배경 문제:
+> - 슬랙에서 출석 여부나 공지사항 등 찾기 어렵고, 로그가 너무 빠르게 쌓임
+
+- **해결 아이디어:**
+    - Slack Web API 활용 → 고수준 기능으로 확장 가능:
+        - conversations.history: 채널 메시지 로그 조회
+        - conversations.info: 읽음 위치/읽지 않은 메시지 추적
+        - search.messages: 키워드 기반 검색 ("출석")
+        - chat.postMessage: 출석 미체크 알림 전송
+
+    - 이를 기반으로 **슬랙 챗봇** 제작 → 대화형으로 기능 제공
+
+- **피드백/투표:**
+    - AI가 단순 매칭 수준에서 끝나면 필요성이 약해질 수 있음
+    - 따라서 **자연어 처리 및 응답 요약** 등 AI의 역할을 명확히 정하면 고도화 가능
+
+### 🧪 3. 과제 자동 테스트 케이스 생성기배경 문제:
+> - 매일 과제가 주어지지만 충분히 테스트할 시간이 없음
+
+- 해결 아이디어:
+    - 과제가 공개되는 즉시 GPT 기반 자동 테스트 생성기 실행
+    - 엣지 케이스 포함 다양한 입력 케이스 생성 → 슬랙에 자동 공유
+- **장점:**
+    - 생산성 향상
+    - 협업 시 기준 테스트 공유 가능
+
+### ❓ 4. 학습한 내용 퀴즈 자동 생성기
+> - 배운 내용을 제대로 이해했는지 자가진단이 어려움
+> - 헷갈리는 표현, 개념을 체크하기 어려움
+
+- **아이디어 요약:**
+    - GPT를 활용해 학습 내용을 기반으로 퀴즈 생성 (OX, 객관식, 빈칸 등)
+    - **헷갈리는 개념이나 약한 부분**을 자동 식별 및 피드백 제공
+
+- **피드백/투표:**
+    - “실제로 있으면 나부터도 잘 쓸 것 같다.“
+
+---
+
+## 자료 조사
+
+### 1. 생성형 AI 퀴즈 실사용 후기 및 블로그
+
+- 🔗 [생성형 AI 퀴즈 실험 후기 (네이버 블로그)](https://m.blog.naver.com/math_rani/223584260316)  
+  → GPT로 OX/객관식 퀴즈 생성 후 Google Form에 반영한 실습 내용 공유
+
+- 🔗 [BlazeToday - Benefits of Using AI Quiz Generators](https://blaze.today/blog/ai-quiz-generators/?utm_source=chatgpt.com)  
+  → AI 퀴즈 생성기 장점, 다양한 사용 사례 및 도구 비교 정리
+
+
+### 2. GPT 기반 퀴즈 생성 플랫폼 소개
+
+- 🔗 [Wayground](https://wayground.com/?lng=en)  
+  → PDF, 유튜브 링크, 웹사이트 URL 업로드 시 퀴즈 자동 생성하는 도구
+
+- 🔗 [퀴즈 빌더 GPT - Google Workspace Marketplace](https://workspace.google.com/marketplace/app/%ED%80%B4%EC%A6%88_%EB%B9%8C%EB%8D%94_google_%EC%84%A4%EB%AC%B8%EC%A7%80%EC%9A%A9_gpt_chatgpt/37349114302)  
+  → YouTube 영상, Google Docs 등 다양한 자료에서 퀴즈 자동 생성
+
+- 🔗 [ChatGPT 퀴즈 전용 커스텀 GPT](https://chatgpt.com/g/g-L6j8e6Cky-kwijeu-maseuteo)  
+  → 학습 내용을 입력하면 GPT가 직접 퀴즈로 변환해주는 챗봇
+
+
+### 3. 퀴즈 생성 기술 연구 및 적용 사례
+
+- 🔗 [Elice 뉴스룸 - AI 퀴즈 생성 적용 사례](https://elice.io/ko/newsroom/ai-quiz-generation)  
+  → 실제 교육 플랫폼에서 AI 퀴즈 생성 모델을 활용한 사례 소개
+
+- 🔗 [Wikipedia: Adaptive Learning](https://en.wikipedia.org/wiki/Adaptive_learning?utm_source=chatgpt.com)  
+  → 학습자의 수준에 맞춰 퀴즈를 조절하는 ‘적응형 학습’ 개념 설명
+
+- 🔗 [DBpia 논문: 적응형 AI 평가 시스템](https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE11225517)  
+  → 적응형 학습 시스템과 AI 평가 알고리즘에 대한 이론적 배경
+
+
+---
+
+## 퀘스트
+
+### 1. 퀘스트 목록
+
+1. GPT 퀴즈 모델 사용하여 학습 복습 해보기
+
+2. GPT 퀴즈 생성용 프롬프트 작성해보기
+    - 입력: 난이도, 문제 수 포함
+
+3. GPT 생성한 퀴즈 구글 시트 저장 자동화
+
+4. google Apps Script 사용해보기
+
+5. google Apps Script를 통해 구글 폼 자동 생성
+    - google Apps Script 활용
+
+6. 구글 폼 링크를 슬랙 웹훅으로 전송해보기 
+
+---
+
+### 2. 퀘스트 배경 및 목적
+- 배운 내용을 제대로 이해했는지 자가진단.
+- 퀴즈를 생성하기 위한 AI 프롬프트 설계
+- 아래 네 가지 기능 조사 및 활용 경험 제공
+    - ChatGPT api 
+    - Google apps script
+    - Google sheet
+    - Slack webhook
+
+퀴즈 생성기 프로그램을 병렬적으로 수행 가능한 퀘스트로 분할하여 동시작업을 진행하도록 구상함
