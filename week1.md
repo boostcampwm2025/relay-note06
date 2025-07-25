@@ -211,7 +211,7 @@
 
 퀴즈 결과:
 
-<img width="525" height="444" alt="image" src="https://gist.github.com/user-attachments/assets/2584d233-eceb-47cf-9fc0-95b36ea292b2" />
+![](https://velog.velcdn.com/images/unhhyyeexx/post/39702a8c-8700-4420-97af-1cffe7bcb161/image.png)
 
 느낀점:
 
