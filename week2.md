@@ -28,7 +28,7 @@
 
 1. 자신이 작성한 `학습정리.md` 를 보면서 스스로 헷갈리는 개념을 따로 정리한다.
 2. 정리한 내용을 GPT를 통해 퀴즈를 생성한다.
-3. 생성한 퀴즈는 [quiz.md](http://quiz.md) 에 기록한다.
+3. 생성한 퀴즈는 [quiz.md](https://github.com/boostcampwm2025/relay-note06/blob/main/quiz.md) 에 기록한다.
 4. 퀴즈를 풀고 학습을 점검한다.
 
 ### 달성 기준
