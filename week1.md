@@ -251,7 +251,7 @@
 
 #### 퀴즈 결과
 
-<img width="842" height="399" alt="image" src="https://gist.github.com/user-attachments/assets/6701c36f-9f40-43d2-a9f5-ec90981f67eb" />
+<img width="837" height="420" alt="Image" src="https://github.com/user-attachments/assets/3f11a981-0ba8-4b53-9499-ccaad8f39528" />
 
 #### 느낀 점
 
