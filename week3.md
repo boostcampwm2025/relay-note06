@@ -222,80 +222,95 @@ LLM 활용도 향상을 꾀하며 학습 효과도 부가적으로 가져갈 수
 #### 수행결과
 
 <details>
-<summary>**08.05**</summary>
+  
+<summary><strong>08.05</strong></summary>
 
-✅ 전체 구조 피드백
-👍 장점
-모듈 책임을 나누려는 시도가 명확해. (cli, main, vdb, utils, command)
+## ✅ 전체 구조 피드백
 
-CLI 기반 인터페이스 흐름이 명확하고 사용하기 쉬움
+### 👍 장점
 
-storage/ 디렉토리로 파일 저장 고려도 포함된 점도 좋음
+- **모듈 책임을 나누려는 시도**가 명확해. (cli, main, vdb, utils, command)
+- CLI 기반 인터페이스 흐름이 **명확하고 사용하기 쉬움**
+- `storage/` 디렉토리로 **파일 저장 고려**도 포함된 점도 좋음
 
-🔍 개선점 (실무 기준 비판적 피드백)
-1. 모듈 책임 분리 – 일부 애매함
-모듈	개선 포인트
-main.js	DB 로직까지 일부 수행 (→ 너무 많은 책임)
-cli.js	단순 입력만 받는 건 OK, 그러나 사용자 유효성 검증은 어디서? main이 너무 과도하게 끌어안게 됨
-vdb.js	DB와 스토리지 책임을 동시에 가짐 (SRP 위반 가능성 있음)
-utils.js	기능 범위가 너무 광범위. embedding, distance, pooling은 다른 관심사
+---
 
-✅ 개선 제안:
+## 🔍 개선점 (실무 기준 비판적 피드백)
 
-storage.js 분리 → DB 내부 상태의 저장/로드 전담
+### 1. **모듈 책임 분리 – 일부 애매함**
 
-embedding.js 분리 → 모델 초기화, 임베딩 추출
+| 모듈 | 개선 포인트 |
+| --- | --- |
+| `main.js` | DB 로직까지 일부 수행 (→ 너무 많은 책임) |
+| `cli.js` | 단순 입력만 받는 건 OK, 그러나 사용자 유효성 검증은 어디서? `main`이 너무 과도하게 끌어안게 됨 |
+| `vdb.js` | DB와 스토리지 책임을 동시에 가짐 (SRP 위반 가능성 있음) |
+| `utils.js` | 기능 범위가 너무 광범위. embedding, distance, pooling은 다른 관심사 |
 
-distance.js → 유사도, 거리 계산만 따로 분리
+✅ **개선 제안:**
 
-vdb.js는 순수하게 메모리상의 DB 추상화만 하도록 제한
+- `storage.js` 분리 → DB 내부 상태의 **저장/로드 전담**
+- `embedding.js` 분리 → 모델 초기화, 임베딩 추출
+- `distance.js` → 유사도, 거리 계산만 따로 분리
+- `vdb.js`는 순수하게 **메모리상의 DB 추상화만** 하도록 제한
 
-2. 입력 흐름 설계 – cli.js와 main.js 간 책임 재조정 필요
+---
+
+### 2. **입력 흐름 설계 – `cli.js`와 `main.js` 간 책임 재조정 필요**
+
 현재:
 
-cli는 사용자 입력만 받고, 해석/실행은 전부 main.js
+- `cli`는 사용자 입력만 받고, 해석/실행은 전부 `main.js`
 
-👉 이 경우 main.js가 커지면서 유닛테스트가 어려워짐
+👉 이 경우 **main.js가 커지면서 유닛테스트가 어려워짐**
 
 ✅ 개선 제안:
 
-cli.js가 Command 객체 (명령어, args, input string 등)를 만들어 넘기고
+- `cli.js`가 `Command` 객체 (명령어, args, input string 등)를 만들어 넘기고
+- `main.js`는 해당 커맨드를 `command-handler.js` 같은 곳으로 위임
 
-main.js는 해당 커맨드를 command-handler.js 같은 곳으로 위임
+---
 
-3. 명령어 정의 (commands.js) – 확장성 좋지만
+### 3. **명령어 정의 (`commands.js`) – 확장성 좋지만**
+
 현재는 단순한 상수 저장소로 보임
 
 ✅ 개선 제안:
 
-CommandEnum, CommandHelpMap, CommandPrompts 등 명령어에 대한 메타데이터를 통합적으로 관리하는 구조가 필요
+- `CommandEnum`, `CommandHelpMap`, `CommandPrompts` 등 **명령어에 대한 메타데이터를 통합적으로 관리**하는 구조가 필요
+- (실무에서는 슬래시 커맨드처럼 autocompletion과 도움말 자동 생성까지 연결됨)
 
-(실무에서는 슬래시 커맨드처럼 autocompletion과 도움말 자동 생성까지 연결됨)
+---
 
-4. 빠진 기능 / 예외처리
-빠진 항목	설명
-✔ 중복 데이터 체크	add() 시 동일 id 체크 없음
-✔ 예외 처리	I/O, 모델 로딩, JSON 파싱, 없는 명령 등 전혀 없음
-✔ CLI 종료 처리	Ctrl+C 혹은 오류 발생 시 graceful shutdown
-✔ 유사도 정렬	search 시 상위 N개 유사도 정렬 반환 로직은 명세에 없음
-✔ 벡터 차원 미스매치 처리	임베딩 dim과 DB dim 불일치 체크 로직 필요
-✔ 초기화 시 기존 파일 삭제 여부 선택	
+### 4. **빠진 기능 / 예외처리**
 
-5. 파일 기반 스토리지 – 이대로는 위험
-vdb.js 내에서 파일을 직접 읽고 쓰는 방식이라면, 동시성 문제, 락 처리, 구조화 저장이 없음
+| 빠진 항목 | 설명 |
+| --- | --- |
+| ✔ 중복 데이터 체크 | `add()` 시 동일 id 체크 없음 |
+| ✔ 예외 처리 | I/O, 모델 로딩, JSON 파싱, 없는 명령 등 전혀 없음 |
+| ✔ CLI 종료 처리 | Ctrl+C 혹은 오류 발생 시 graceful shutdown |
+| ✔ 유사도 정렬 | `search` 시 상위 N개 유사도 정렬 반환 로직은 명세에 없음 |
+| ✔ 벡터 차원 미스매치 처리 | 임베딩 dim과 DB dim 불일치 체크 로직 필요 |
+| ✔ 초기화 시 기존 파일 삭제 여부 선택 |  |
 
-실무에서는 최소한 JSON → line-delimited JSON (streaming), 혹은 sqlite, levelDB 등 고려
+---
+
+### 5. **파일 기반 스토리지 – 이대로는 위험**
+
+- `vdb.js` 내에서 파일을 직접 읽고 쓰는 방식이라면, **동시성 문제, 락 처리, 구조화 저장**이 없음
+- 실무에서는 최소한 JSON → line-delimited JSON (streaming), 혹은 sqlite, levelDB 등 고려
 
 ✅ 개선 제안:
 
-파일 I/O를 비동기 Promise 기반으로 분리
+- **파일 I/O를 비동기 Promise 기반으로 분리**
+- 파일 포맷은 `.json` 보다는 `.jsonl` 또는 `.db` (구조화된 접근 허용)
 
-파일 포맷은 .json 보다는 .jsonl 또는 .db (구조화된 접근 허용)
+---
 
-✍️ 추천 구조 개선 예시
+## ✍️ 추천 구조 개선 예시
+
+```
 graphql
-복사
-편집
+복사편집
 /vector-db/
 ├── main.js
 ├── cli/
@@ -314,19 +329,29 @@ graphql
 │   └── commands.js         # 명령 정의
 └── storage/
     └── vectors.jsonl       # 저장되는 데이터
-🔚 요약
-항목	상태	개선 제안
-책임 분리	⚠️ 일부 애매	utils 분해, storage 분리, handler 구조화
-확장성	👍 양호	enum/metadata 중심으로 강화
-빠진 기능	❌ 있음	중복 검사, 예외 처리, graceful shutdown 등
-스토리지	⚠️ 단순	JSONL 혹은 구조화 파일 권장
-명령 구조	👍 기반 좋음	handler 분리로 testability 향상
+
+```
+
+---
+
+## 🔚 요약
+
+| 항목 | 상태 | 개선 제안 |
+| --- | --- | --- |
+| 책임 분리 | ⚠️ 일부 애매 | utils 분해, storage 분리, handler 구조화 |
+| 확장성 | 👍 양호 | enum/metadata 중심으로 강화 |
+| 빠진 기능 | ❌ 있음 | 중복 검사, 예외 처리, graceful shutdown 등 |
+| 스토리지 | ⚠️ 단순 | JSONL 혹은 구조화 파일 권장 |
+| 명령 구조 | 👍 기반 좋음 | handler 분리로 testability 향상 |
+
+<br>
 
 **느낀점**
 
 조건을 몇개 줬는데 생각보다 너무 자세히 잘 알려주는 것 같다.
 
 </details>
+
 ---
 
 ### J225_임건혁 -퀘스트 5. 기본 퀴즈 생성기 아이디어
