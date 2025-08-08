@@ -205,6 +205,28 @@ LLM 활용도 향상을 꾀하며 학습 효과도 부가적으로 가져갈 수
 
 #### 수행결과
 
+<details>
+  
+<summary><strong>08.07</strong></summary>
+
+> 내가 만든 퀘스트: AI피어세션에서 조금 부족하게 했던 퀴즈 RPG로 재밌게 학습해보기
+> 의도: 퀴즈 RPG로 게임하듯이 재밌게 학습해보자
+
+## 진행 사진
+
+<img width="732" height="1123" alt="스크린샷 2025-08-08 113301" src="https://github.com/user-attachments/assets/dc64c07b-b0c4-4316-92f8-6b72e7b08f1a" />
+<img width="877" height="606" alt="스크린샷 2025-08-08 113436" src="https://github.com/user-attachments/assets/bae25485-d104-4ab1-8ec5-e8e14572b338" />
+<img width="872" height="634" alt="스크린샷 2025-08-08 113440" src="https://github.com/user-attachments/assets/fedc07e0-9df7-4460-9e7d-a86c63b1e501" />
+<img width="888" height="768" alt="스크린샷 2025-08-08 113449" src="https://github.com/user-attachments/assets/889271ff-c9a4-40ba-bf35-1631580aad70" />
+
+
+## 느낀점
+
+그냥 퀴즈를 받아서 하기보다는 RPG게임으로 퀴즈를 바탕으로 성장하는 기분도 느끼면서 조금 지루하거나 의욕이 부족할 떄 재밌게 학습할 수 있어서 효과가 생각보다 좋았던 것 같다.
+오답이 나왔을 때 조금 더 지식을 정리를 잘 해주게끔 또, 게임 룰을 조금 더 구체화해서 프롬프트를 잘 작성해서 실행하면 정말 게임같은 재밌는 학습이 가능할 것 같다.
+
+</details>
+
 ### J079_김한경 - 퀘스트 3. 페르소나 기반 프롬프트 vs 일반 프롬프트 - 생성된 문제의 질 비교
 #### 선정이유 
 평소에 어떻게 하면 AI를 효과적으로 쓸 지에 대한 고민이 많았고 페르소나 기반으로 하면 질적으로 더 좋은 결과가 생성될 지 궁금했기 때문에 비교해보고 싶었다.
